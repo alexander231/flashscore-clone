@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, FormControl, Select, MenuItem, Grid, Icon } from "@mui/material"
 
-const Selector = ({ options, handleClick }) => {
+const Selector = ({ options, handleClickLeague, handleClickSeason, currentLeague, currentSeason }) => {
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -12,12 +12,21 @@ const Selector = ({ options, handleClick }) => {
         },
       },
     }
+
     return (
+    
+      <Grid>
         <FormControl style={{ minWidth: 400 }} size="small">
-            <Select MenuProps={MenuProps} defaultValue={options[0].league.name}>
-                {options.map(option => <MenuItem onClick={() => handleClick(option)} key = {option.league.id} value = {option.league.name}>{option.league.name}</MenuItem>)}
+            <Select MenuProps={MenuProps} value = {currentLeague.league.name}>
+                {options.map(option => <MenuItem onClick={() => handleClickLeague(option)} key = {option.league.id} value = {option.league.name}>{option.league.name}</MenuItem>)}
             </Select>
-         </FormControl>
+        </FormControl>
+        <FormControl style={{ minWidth: 400 }} size="small">
+            <Select MenuProps={MenuProps} value={currentSeason}>
+                {currentLeague.seasons.map(season => <MenuItem onClick={() => handleClickSeason(season.year)} key = {season.year} value = {season.year}>{season.year}</MenuItem>)}
+            </Select>
+        </FormControl>
+      </Grid>
     )
 
 }

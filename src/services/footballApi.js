@@ -1,34 +1,31 @@
 import axios from 'axios'
-const baseUrl = 'https://api-football-beta.p.rapidapi.com'
-const method = 'GET'
-const headers = {
-    'x-rapidapi-host': 'api-football-beta.p.rapidapi.com',
-    'x-rapidapi-key': '9d32936546msh32bd09654c154afp19d9e0jsna419f727701b'
-}
-
-const optionsCountries = {
-    method,
-    url: `${baseUrl}/countries`,
-    headers
-}
-const optionsLeagues = {
-    method,
-    url: `${baseUrl}/leagues`,
-    headers
-}
+const baseUrl = 'http://localhost:3001/api'
 
 const getCountries = async () => {
-    const response = await axios.request(optionsCountries)
+    const response = await axios.get(`${baseUrl}/countries`)
     return response.data
 }
 
 const getLeagues = async (country) => {
-    optionsLeagues.params = { country }
-    const response = await axios.request(optionsLeagues)
+    const response = await axios.get(`${baseUrl}/leagues/${country}`)
     return response.data
 }
 
-export default{
+const getStandings = async (season, league) => {
+    const params = { season, league }
+    const response = await axios.get(`${baseUrl}/standings`, { params })
+    return response.data
+}
+
+const getFixtures = async (season, league) => {
+    const params = { season, league }
+    const response = await axios.get(`${baseUrl}/fixtures`, { params })
+    return response.data
+}
+
+export default {
     getCountries,
-    getLeagues
+    getLeagues,
+    getStandings, 
+    getFixtures
 }

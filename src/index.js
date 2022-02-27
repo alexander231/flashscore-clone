@@ -5,13 +5,13 @@ import App from './App'
 import CountryPage from './components/CountryPage'
 
 
+
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<App />} />
-            <Route path=':countryId' element={<CountryPage />}/>
-           
-            
+            <Route path="/" element={ <App />} />
+            <Route path=':countryId' element={ <CountryPage />}/>
+
         </Routes>
     </BrowserRouter>, 
     document.getElementById('root'))

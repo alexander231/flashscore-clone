@@ -5,7 +5,7 @@ const Country = ({ country }) => {
     const navigate = useNavigate()
     
     return (
-    <Card style={{ maxWidth: 200}}>
+    <Card style={{ maxWidth: 200 }}>
         <CardActionArea onClick={() => navigate(`/${country.name}`)}> 
             <CardMedia                                                                                                                                                                                                                                                                                                            
               component="img"                                                                                                                                                                                                                                                                                                     

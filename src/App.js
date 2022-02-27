@@ -6,7 +6,7 @@ import { Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import footballApi from './services/footballApi'
-
+import fifa from './images/fifa.png'
 const App = () => {
     const [countries, setCountries] = useState([])
     const [filteredCountries, setFilteredCountries] = useState([])
@@ -18,8 +18,15 @@ const App = () => {
     }
     useEffect(() => {
         const fetchCountries = async () => {
-            const body = await footballApi.getCountries()
-            const allCountries = body.response.filter(country => country.name !== 'World')
+            const response = await footballApi.getCountries()
+            const allCountries = response.map(country => {
+                
+                if (country.name === 'World') {
+                
+                    return {...country, flag: fifa}
+                }
+                return country
+            })
             setCountries(allCountries)
             setFilteredCountries(allCountries)
         }
@@ -30,9 +37,7 @@ const App = () => {
     return (
        
         <Grid container direction="column" spacing={10} justifyContent="center" alignItems="center">
-            <Grid item>
-                <Link to="/home">Home</Link>
-            </Grid>
+        
             <Header handleChange = {handleChange}/>
             <Body countries={filteredCountries}/>
             <Footer/>
